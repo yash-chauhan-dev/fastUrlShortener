@@ -15,4 +15,4 @@ def connect():
     client = pymongo.MongoClient(host=MONGO_DB_HOST)
     db = client[DB_STR]
     collection = db[DB_COLLECTION_STR]
-    return collection
+    return client, db, collection
