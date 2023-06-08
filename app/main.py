@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import Body, FastAPI, Request
 
-from app import db
+from app import db, fuzzy, models
 
 app = FastAPI()
 
@@ -16,9 +16,25 @@ def shutdown_db_client():
 
 
 @app.get("/")
-def start_new_page():
-    return {
-        "HOST": str(app.mongo_client),
-        "DB": str(app.database),
-        "COLLECTION": str(app.collection)
-    }
+def home():
+    pass
+
+
+@app.get("/fuzzy")
+def get_fuzzy_url(request: Request):
+    return fuzzy.list_fuzzy_url(request=request)
+
+
+@app.post("/fuzzy")
+def make_fuzzy_url(request: Request, data: models.URL = Body(...)):
+    return fuzzy.generate_fuzzy_url(request=request, data=data)
+
+
+@app.post("/mail")
+def mail_user():
+    pass
+
+
+@app.get("{uid}")
+def open_fuzzy_url(uid: str):
+    pass
