@@ -1,12 +1,12 @@
 import uuid
 
 import urllib3
-from fastapi import Request
+from fastapi import Request, Response
 
 from app import config, db, models
 
 
-def generate_fuzzy_url(request: Request, data: models.URL):
+def generate_fuzzy_url(request: Request, data: models.URL, response: Response):
     settings = config.Settings()
     host_name = settings.app_host
 
@@ -20,6 +20,7 @@ def generate_fuzzy_url(request: Request, data: models.URL):
             "original_url": original_url
         }
         ret_val = db.save_document(request, data_json)
+        response.set_cookie(key="fuzzy_url", value=fuzzy_url)
         return ret_val
 
     else:

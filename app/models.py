@@ -1,6 +1,7 @@
 import uuid
+from typing import List
 
-from pydantic import AnyHttpUrl, BaseModel, Field
+from pydantic import AnyHttpUrl, BaseModel, EmailStr, Field
 
 
 class DatabaseDocument(BaseModel):
@@ -22,4 +23,8 @@ class URL(BaseModel):
 
 class ListDocument(BaseModel):
     message: str = Field(...)
-    data: list = Field(...)
+    data: List[dict] = Field(...)
+
+
+class EmailSchema(BaseModel):
+    email: List[EmailStr]

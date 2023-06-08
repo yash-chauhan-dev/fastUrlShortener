@@ -1,6 +1,6 @@
-from fastapi import Body, FastAPI, Request
+from fastapi import Body, FastAPI, Request, Response
 
-from app import db, fuzzy, models
+from app import db, fuzzy, mail_service, models
 
 app = FastAPI()
 
@@ -20,19 +20,30 @@ def home():
     pass
 
 
-@app.get("/fuzzy")
+@app.get("/fuzzy", response_model=models.ListDocument)
 def get_fuzzy_url(request: Request):
     return fuzzy.list_fuzzy_url(request=request)
 
 
 @app.post("/fuzzy")
-def make_fuzzy_url(request: Request, data: models.URL = Body(...)):
-    return fuzzy.generate_fuzzy_url(request=request, data=data)
+def make_fuzzy_url(request: Request, response: Response,
+                   data: models.URL = Body(...)):
+    return fuzzy.generate_fuzzy_url(
+        request=request,
+        data=data,
+        response=response
+    )
 
 
 @app.post("/mail")
-def mail_user():
-    pass
+async def mail_user(request: Request, response: Response,
+                    email_data: models.EmailSchema):
+    ret_val = await mail_service.send_mail(
+        request=request,
+        email_data=email_data,
+        response=response
+    )
+    return ret_val
 
 
 @app.get("{uid}")
