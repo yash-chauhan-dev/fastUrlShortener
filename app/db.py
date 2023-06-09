@@ -35,3 +35,9 @@ def save_document(request: Request, data):
 
 def list_documents(request: Request):
     return list(request.app.collection.find())
+
+
+def get_original_url(request: Request, url):
+    ret_val = request.app.collection.find_one({"fuzzy_url": url})
+    validated_data = models.OriginalUrl(**ret_val)
+    return validated_data
