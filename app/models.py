@@ -10,6 +10,10 @@ class DatabaseDocument(BaseModel):
     fuzzy_url: AnyHttpUrl = Field(...)
 
 
+class OriginalUrl(BaseModel):
+    original_url: AnyHttpUrl = Field(...)
+
+
 class URL(BaseModel):
     url: AnyHttpUrl = Field(...)
 

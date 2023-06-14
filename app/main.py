@@ -15,11 +15,6 @@ def shutdown_db_client():
     app.mongo_client.close()
 
 
-@app.get("/")
-def home():
-    pass
-
-
 @app.get("/fuzzy", response_model=models.ListDocument)
 def get_fuzzy_url(request: Request):
     return fuzzy.list_fuzzy_url(request=request)
@@ -37,7 +32,7 @@ def make_fuzzy_url(request: Request, response: Response,
 
 @app.post("/mail")
 async def mail_user(request: Request, response: Response,
-                    email_data: models.EmailSchema):
+                    email_data: models.EmailSchema = Body(...)):
     ret_val = await mail_service.send_mail(
         request=request,
         email_data=email_data,
@@ -46,6 +41,6 @@ async def mail_user(request: Request, response: Response,
     return ret_val
 
 
-@app.get("{uid}")
-def open_fuzzy_url(uid: str):
-    pass
+@app.get("/{uid}")
+def open_fuzzy_url(request: Request, uid: str):
+    return fuzzy.redirect_fuzzy_url(request=request, uid=uid)

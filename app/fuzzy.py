@@ -2,6 +2,7 @@ import uuid
 
 import urllib3
 from fastapi import Request, Response
+from fastapi.responses import RedirectResponse
 
 from app import config, db, models
 
@@ -47,5 +48,12 @@ def list_fuzzy_url(request: Request):
     }
 
 
-def redirect_fuzzy_url():
-    pass
+def redirect_fuzzy_url(request: Request, uid):
+    settings = config.Settings()
+    host_name = settings.app_host
+    search_url = host_name + uid
+
+    data_dict = db.get_original_url(request=request, url=search_url)
+    redirect_url = data_dict.dict().get("original_url")
+
+    return RedirectResponse(redirect_url)
