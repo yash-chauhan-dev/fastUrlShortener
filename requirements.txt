@@ -4,3 +4,5 @@ pymongo
 python-dotenv
 urllib3
 fastapi-mail
+pyJWT
+python-decouple

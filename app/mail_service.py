@@ -27,7 +27,6 @@ async def send_mail(request: Request, response: Response,
 
     template = env.get_template("email.html")
     html = template.render(
-        title="Fuzzy Link",
         link=request.cookies.get("fuzzy_url")
     )
 
