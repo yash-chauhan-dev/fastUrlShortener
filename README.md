@@ -18,5 +18,5 @@ High-Level Approach
 Here's what each tool is used for:
 
 - **Python 3.9** [download](https://www.python.org/download/) - programming the logic.
-- **AstraDB** [sign up](https://dtsx.io/3nQnjz1) - highly perfomant and scalable database service by DataStax. AstraDB is a Cassandra NoSQL Database. [Cassandra](https://cassandra.apache.org/_/index.html) is used by Netflix, Discord, Apple, and many others to handle astonding amounts of data.
+- **MongoDB** [docs]([https://dtsx.io/3nQnjz1](https://www.mongodb.com/docs/)) - MongoDB is a document database with the scalability and flexibility that you want with the querying and indexing that you need.
 - **FastAPI** [docs](https://fastapi.tiangolo.com/) - as a web application framework to Display and monitor web scraping results from anywhere
