@@ -32,3 +32,31 @@ class ListDocument(BaseModel):
 
 class EmailSchema(BaseModel):
     email: List[EmailStr]
+
+
+class UserSchema(BaseModel):
+    fullname: str = Field(default=None)
+    email: EmailStr = Field(default=None)
+    password: str = Field(default=None)
+
+    class Config:
+        the_schema = {
+            "user_demo": {
+                "name": "Ronald",
+                "email": "ronald@test.com",
+                "password": "123"
+            }
+        }
+
+
+class UserLoginSchema(BaseModel):
+    email: EmailStr = Field(default=None)
+    password: str = Field(default=None)
+
+    class Config:
+        the_schema = {
+            "user_demo": {
+                "email": "ronald@test.com",
+                "password": "123"
+            }
+        }
